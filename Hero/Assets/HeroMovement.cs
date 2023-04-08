@@ -46,7 +46,7 @@ public class HeroMovement : MonoBehaviour
             //AD rotate
             kHeroRotateSpeed = 45f; //change to per seconds
             float rotateInput = Input.GetAxis("Horizontal");
-            float angle = rotateInput * (kHeroRotateSpeed * Time.smoothDeltaTime);
+            float angle = (-1f * rotateInput) * (kHeroRotateSpeed * Time.smoothDeltaTime);
 
             transform.Rotate(transform.forward, angle);
 
@@ -100,5 +100,23 @@ public class HeroMovement : MonoBehaviour
 
         eggrb.velocity = 40f * transform.up;
         nextFire = Time.time + firerate;
+    }
+
+    private void OnTriggerEnter2D(Collider2D hitinfo)
+    {
+        Debug.Log("Hero collided");
+        if(hitinfo.name == "Plane")
+        {
+            hitinfo.gameObject.transform.position = Vector3.zero;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D hitinfo)
+    {
+        Debug.Log("Hero still colliding");
+        if(hitinfo.name == "Plane")
+        {
+            hitinfo.gameObject.transform.position = Vector3.zero;
+        }
     }
 }
