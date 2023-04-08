@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HeroMovement : MonoBehaviour
 {
+    Vector3 pos;
     public bool KeyBoardMode = false;
 
     [SerializeField]
@@ -30,6 +31,18 @@ public class HeroMovement : MonoBehaviour
                 Debug.Log("Switching to Keyboard Mode");
                 return;
             }
+
+            //plane follows cursor
+            pos = Input.mousePosition;
+            pos.z = 1f;
+            transform.position = Camera.main.ScreenToWorldPoint(pos);
+
+            //AD rotate
+            kHeroRotateSpeed = 90f;
+            float rotateInput = Input.GetAxis("Horizontal");
+            float angle = rotateInput * (kHeroRotateSpeed * Time.smoothDeltaTime);
+
+            transform.Rotate(transform.forward, angle);
         }
         else
         {
@@ -39,6 +52,8 @@ public class HeroMovement : MonoBehaviour
                 Debug.Log("Switching to mouse mode");
                 return;
             }
+
+            kHeroRotateSpeed = 360f;
             //either A,D or Left,Right arrows
             //right arrow = 1
             //left arrow = -1
@@ -64,7 +79,7 @@ public class HeroMovement : MonoBehaviour
             //direction we want character to move in
             Vector2 moveDirection = new Vector2(horizontalInput, verticalInput);
 
-            //store orginal magnitude
+            //store orginal magnitude in a range of only -1 to 1
             float OGMagnitude = Mathf.Clamp01(moveDirection.magnitude);
 
             //different inputs can lead to values over or less than 1. normalize so that
@@ -81,5 +96,10 @@ public class HeroMovement : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, kHeroRotateSpeed * Time.deltaTime);
             }
         }
+    }
+
+    void KeyBoardSettings()
+    {
+
     }
 }
