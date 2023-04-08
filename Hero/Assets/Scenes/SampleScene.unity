@@ -332,6 +332,8 @@ MonoBehaviour:
   kHeroRotateSpeed: 45
   eggSpawnPoint: {fileID: 1367071139}
   eggPrefab: {fileID: 475693280076637257, guid: 3cf62e477ef4444ca92cadd1380c2984, type: 3}
+  firerate: 0.5
+  nextFire: 0
 --- !u!1 &1367071138
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367071138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0.78, z: 0}
   m_LocalScale: {x: 1, y: 0.8875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

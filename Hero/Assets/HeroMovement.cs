@@ -16,6 +16,8 @@ public class HeroMovement : MonoBehaviour
     //egg variables
     public Transform eggSpawnPoint;
     public GameObject eggPrefab;
+    public float firerate = 0.5f;
+    public float nextFire = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +50,7 @@ public class HeroMovement : MonoBehaviour
 
             transform.Rotate(transform.forward, angle);
 
-            if(Input.GetKey(KeyCode.Space))
+            if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
             {
                 EggSpawn();
             }
@@ -84,15 +86,19 @@ public class HeroMovement : MonoBehaviour
 
         transform.Rotate(Vector3.forward, -1f * Input.GetAxis("Horizontal") * (kHeroRotateSpeed * Time.smoothDeltaTime));
 
-        if((Input.GetKey(KeyCode.Space)))
+        if((Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
-            Debug.Log("Egg Spawn");
+            //Debug.Log("Egg Spawn");
             EggSpawn();
         }
     }
 
     private void EggSpawn()
     {
-        Instantiate(eggPrefab, eggSpawnPoint.position, eggSpawnPoint.rotation);
+        GameObject eggbullet = Instantiate(eggPrefab, eggSpawnPoint.position, eggSpawnPoint.rotation);
+        Rigidbody2D eggrb = eggbullet.GetComponent<Rigidbody2D>();
+
+        eggrb.velocity = 40f * transform.up;
+        nextFire = Time.time + firerate;
     }
 }

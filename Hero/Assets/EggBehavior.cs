@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class EggBehavior : MonoBehaviour
 {
-    //speed of bullet
-    public float speed = 40f;
-    public Rigidbody2D rb;
-
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D hitinfo)
     {
-        rb.velocity = transform.right * speed;
+        Debug.Log(hitinfo.name);
+        Destroy(gameObject);
     }
 }
