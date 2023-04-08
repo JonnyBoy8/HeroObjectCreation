@@ -35,6 +35,7 @@ public class HeroMovement : MonoBehaviour
             {
                 KeyBoardMode = true;
                 Debug.Log("Switching to Keyboard Mode");
+                GlobalBehavior.sTheGlobalBehavior.UpdateToKeyboardUI();
                 return;
             }
 
@@ -61,6 +62,7 @@ public class HeroMovement : MonoBehaviour
             {
                 KeyBoardMode = false;
                 Debug.Log("Switching to mouse mode");
+                GlobalBehavior.sTheGlobalBehavior.UpdateToMouseUI();
                 return;
             }
 
@@ -88,7 +90,6 @@ public class HeroMovement : MonoBehaviour
 
         if((Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
-            //Debug.Log("Egg Spawn");
             EggSpawn();
         }
     }
@@ -100,6 +101,8 @@ public class HeroMovement : MonoBehaviour
 
         eggrb.velocity = 40f * transform.up;
         nextFire = Time.time + firerate;
+
+        GlobalBehavior.sTheGlobalBehavior.IncreaseEggCountUI();
     }
 
     private void OnTriggerEnter2D(Collider2D hitinfo)

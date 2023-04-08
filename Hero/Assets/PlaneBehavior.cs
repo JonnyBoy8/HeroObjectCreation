@@ -10,6 +10,8 @@ public class PlaneBehavior : MonoBehaviour
         if(hitinfo.name == "Hero")
         {
             Destroy(gameObject);
+            GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
+            GlobalBehavior.sTheGlobalBehavior.UpdateHeroCollideUI();
         }
         else
         {
@@ -36,6 +38,7 @@ public class PlaneBehavior : MonoBehaviour
 
         if(current_color.a <= 0.0f)
         {
+            GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
             Destroy(gameObject);
         }
     }
