@@ -14,8 +14,8 @@ public class HeroMovement : MonoBehaviour
     public float kHeroRotateSpeed;
 
     //egg variables
-    public Transform EggSpawn;
-    public GameObject EggPrefab;
+    public Transform eggSpawnPoint;
+    public GameObject eggPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,7 @@ public class HeroMovement : MonoBehaviour
 
             if(Input.GetKey(KeyCode.Space))
             {
-
+                EggSpawn();
             }
         }
         else
@@ -82,21 +82,17 @@ public class HeroMovement : MonoBehaviour
             kHeroSpeed -= .025f;
         }
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        transform.position += horizontalInput * transform.right * (kHeroSpeed * Time.smoothDeltaTime);
-
-        float angle = (-1f * horizontalInput) * (kHeroRotateSpeed * Time.smoothDeltaTime);
-        //transform.rotate.z = angle;
-        transform.Rotate(transform.forward, angle);
+        transform.Rotate(Vector3.forward, -1f * Input.GetAxis("Horizontal") * (kHeroRotateSpeed * Time.smoothDeltaTime));
 
         if((Input.GetKey(KeyCode.Space)))
         {
             Debug.Log("Egg Spawn");
+            EggSpawn();
         }
     }
 
-    private void BulletSpawn()
+    private void EggSpawn()
     {
-
+        Instantiate(eggPrefab, eggSpawnPoint.position, eggSpawnPoint.rotation);
     }
 }
