@@ -28,6 +28,12 @@ public class HeroMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //DOESNT WORK
+        if(Input.GetKey(KeyCode.Q))
+        {
+            Application.Quit();
+        }
+
         //starts off in non keyboard mode
         if(!KeyBoardMode)
         {
