@@ -12,6 +12,8 @@ public class PlaneBehavior : MonoBehaviour
             Destroy(gameObject);
             GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
             GlobalBehavior.sTheGlobalBehavior.UpdateHeroCollideUI();
+            GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
+            GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
         else
         {
@@ -39,7 +41,9 @@ public class PlaneBehavior : MonoBehaviour
         if(current_color.a <= 0.0f)
         {
             GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
+            GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             Destroy(gameObject);
+            GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
     }
 }

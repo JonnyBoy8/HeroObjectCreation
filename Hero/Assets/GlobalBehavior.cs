@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GlobalBehavior : MonoBehaviour
 {
     public static GlobalBehavior sTheGlobalBehavior = null;
+    public GameObject planePrefab;
 
     //Access and edit text boxes
     public Text mHeroModeUI = null;
@@ -38,6 +39,11 @@ public class GlobalBehavior : MonoBehaviour
         mMainCamera = Camera.main;
         mWorldBound = new Bounds(Vector3.zero, Vector3.one);
         UpdateWorldWindowBound();
+
+        for(int i = 0; i < 10; i++)
+        {
+            CreatePlane();
+        }
     }
 
     public enum WorldBoundStatus {
@@ -197,5 +203,16 @@ public class GlobalBehavior : MonoBehaviour
     {
         string to_text = "Egg Count: " + mEggCount.ToString();
         mEggCountUI.text = to_text;
+    }
+
+    public void CreatePlane()
+    {
+        float x = Random.Range(mWorldMin.x, mWorldMax.x);
+        float y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        Vector2 poistion = new Vector2(x, y);
+
+        GameObject new_plane = Instantiate(planePrefab, poistion, Quaternion.identity);
+        IncreaseEnemyCountUI();
     }
 }

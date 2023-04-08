@@ -20,7 +20,7 @@ public class EggBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hitinfo)
     {
-        if(hitinfo.name == "Plane")
+        if(hitinfo.name == "Plane(Clone)")
         {
             Destroy(gameObject);
             GlobalBehavior.sTheGlobalBehavior.DecreaseEggCountUI();
