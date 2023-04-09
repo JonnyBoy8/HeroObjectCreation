@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlaneBehavior : MonoBehaviour
 {
+    //if collides with a hero
     private void OnTriggerEnter2D(Collider2D hitinfo)
     {
         if(hitinfo.name == "Hero")
@@ -14,7 +15,7 @@ public class PlaneBehavior : MonoBehaviour
             GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
-        else
+        else //if it gets hit by anything else (an egg), adjust the color
         {
             UpdateColor();
         }
@@ -30,17 +31,22 @@ public class PlaneBehavior : MonoBehaviour
 
     private void UpdateColor()
     {
+        //get plane color 
         SpriteRenderer enemy = GetComponent<SpriteRenderer>();
         Color current_color = enemy.color;
 
+        //adjust the alpha by .8 (80%)
         current_color.a *= 0.8f;
         enemy.color = current_color;
 
+        //if the color gets adjusted 4 times, destroy the plane
         if(enemy.color.a <= 0.35f)
         {
             GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
             GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             Destroy(gameObject);
+
+            //create a new plane to take its place
             GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
     }

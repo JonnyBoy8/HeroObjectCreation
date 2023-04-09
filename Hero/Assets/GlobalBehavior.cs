@@ -40,6 +40,7 @@ public class GlobalBehavior : MonoBehaviour
         mWorldBound = new Bounds(Vector3.zero, Vector3.one);
         UpdateWorldWindowBound();
 
+        //call the create plane function so spawn planes in random spaces within bounds
         for(int i = 0; i < 10; i++)
         {
             CreatePlane();
@@ -137,6 +138,7 @@ public class GlobalBehavior : MonoBehaviour
         return status;
     }
 
+    //UI METHODS
     public void UpdateToMouseUI()
     {
         mHeroModeUI.text = "Mouse Mode";
@@ -205,13 +207,17 @@ public class GlobalBehavior : MonoBehaviour
         mEggCountUI.text = to_text;
     }
 
+    //spawn planes randomly wihtin bounds
     public void CreatePlane()
     {
+        //find the bound
         float x = Random.Range(mWorldMin.x, mWorldMax.x);
         float y = Random.Range(mWorldMin.y, mWorldMax.y);
 
+        //create a position of the plane
         Vector2 poistion = new Vector2(x, y);
 
+        //create a plane at that location
         GameObject new_plane = Instantiate(planePrefab, poistion, Quaternion.identity);
         IncreaseEnemyCountUI();
     }

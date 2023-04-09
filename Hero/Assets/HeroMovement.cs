@@ -5,6 +5,8 @@ using UnityEngine;
 public class HeroMovement : MonoBehaviour
 {
     Vector3 pos;
+
+    //game always starts in mouse mode
     public bool KeyBoardMode = false;
 
     [SerializeField]
@@ -19,24 +21,23 @@ public class HeroMovement : MonoBehaviour
     public float firerate = 0.5f;
     public float nextFire = 0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("mouse mode");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //DOESNT WORK
-        if(Input.GetKey(KeyCode.Q))
+        //Quit the application
+        if(Input.GetKey("q"))
         {
             Application.Quit();
         }
 
-        //starts off in non keyboard mode
+        //If in mouse mode go here
         if(!KeyBoardMode)
         {
+            //switch from mouse mode to keyboard mode
             if(Input.GetKeyDown("m"))
             {
                 KeyBoardMode = true;
@@ -47,8 +48,9 @@ public class HeroMovement : MonoBehaviour
 
             MouseSettings();
         }
-        else
+        else //else in keyboard mode, go here
         {
+            //switch from keyboard mode to mouse mode
             if(Input.GetKeyDown("m"))
             {
                 KeyBoardMode = false;
@@ -69,17 +71,19 @@ public class HeroMovement : MonoBehaviour
             transform.position = Camera.main.ScreenToWorldPoint(pos);
 
             //AD rotate
-            kHeroRotateSpeed = 45f; //change to per seconds
+            kHeroRotateSpeed = 45f; 
             float rotateInput = Input.GetAxis("Horizontal");
             float angle = (-1f * rotateInput) * (kHeroRotateSpeed * Time.smoothDeltaTime);
 
             transform.Rotate(transform.forward, angle);
 
+            //spacebar and has fire rate
             if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
             {
                 EggSpawn();
             }
 
+        //switch from mousemode to keyboard mode
         if(Input.GetKeyDown("m"))
         {
                 KeyBoardMode = true;
@@ -91,10 +95,12 @@ public class HeroMovement : MonoBehaviour
 
     private void KeyBoardSettings()
     {
-        //kHeroSpeed = 20f;
         kHeroRotateSpeed = 45f; 
 
+        //sprite continues moving up with the speed
         transform.position += transform.up * (kHeroSpeed * Time.smoothDeltaTime);
+
+        //adjust the speed using W and S
         if(Input.GetKey(KeyCode.W))
         {
             kHeroSpeed += .025f;
@@ -105,13 +111,16 @@ public class HeroMovement : MonoBehaviour
             kHeroSpeed -= .025f;
         }
 
+        //rotate left or right using A and D or left and right arrows
         transform.Rotate(Vector3.forward, -1f * Input.GetAxis("Horizontal") * (kHeroRotateSpeed * Time.smoothDeltaTime));
 
+        //shoot an egg
         if((Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
             EggSpawn();
         }
 
+        //swicth from keyboard mode to mouse mode
         if(Input.GetKeyDown("m"))
         {
             KeyBoardMode = false;
@@ -123,18 +132,23 @@ public class HeroMovement : MonoBehaviour
 
     private void EggSpawn()
     {
+        //create a bullet at a position 
         GameObject eggbullet = Instantiate(eggPrefab, eggSpawnPoint.position, eggSpawnPoint.rotation);
         Rigidbody2D eggrb = eggbullet.GetComponent<Rigidbody2D>();
 
+        //put speed on the bullet
         eggrb.velocity = 40f * transform.up;
+
+        //adjust the firerate
         nextFire = Time.time + firerate;
 
+        //update the UI
         GlobalBehavior.sTheGlobalBehavior.IncreaseEggCountUI();
     }
 
+    //Pretty sure not needed
     private void OnTriggerEnter2D(Collider2D hitinfo)
     {
-        Debug.Log("Hero collided");
         if(hitinfo.name == "Plane")
         {
             hitinfo.gameObject.transform.position = Vector3.zero;
@@ -143,7 +157,6 @@ public class HeroMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D hitinfo)
     {
-        Debug.Log("Hero still colliding");
         if(hitinfo.name == "Plane")
         {
             hitinfo.gameObject.transform.position = Vector3.zero;
