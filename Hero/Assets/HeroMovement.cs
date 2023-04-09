@@ -37,7 +37,7 @@ public class HeroMovement : MonoBehaviour
         //starts off in non keyboard mode
         if(!KeyBoardMode)
         {
-            if(Input.GetKey(KeyCode.M))
+            if(Input.GetKeyDown("m"))
             {
                 KeyBoardMode = true;
                 Debug.Log("Switching to Keyboard Mode");
@@ -45,6 +45,24 @@ public class HeroMovement : MonoBehaviour
                 return;
             }
 
+            MouseSettings();
+        }
+        else
+        {
+            if(Input.GetKeyDown("m"))
+            {
+                KeyBoardMode = false;
+                Debug.Log("Switching to mouse mode");
+                GlobalBehavior.sTheGlobalBehavior.UpdateToMouseUI();
+                return;
+            }
+
+            KeyBoardSettings();
+        }
+    }
+
+    private void MouseSettings()
+    {
             //plane follows cursor
             pos = Input.mousePosition;
             pos.z = 1f;
@@ -61,18 +79,13 @@ public class HeroMovement : MonoBehaviour
             {
                 EggSpawn();
             }
-        }
-        else
-        {
-            if(Input.GetKey(KeyCode.M))
-            {
-                KeyBoardMode = false;
-                Debug.Log("Switching to mouse mode");
-                GlobalBehavior.sTheGlobalBehavior.UpdateToMouseUI();
-                return;
-            }
 
-            KeyBoardSettings();
+        if(Input.GetKeyDown("m"))
+        {
+                KeyBoardMode = true;
+                Debug.Log("Switching to Keyboard Mode");
+                GlobalBehavior.sTheGlobalBehavior.UpdateToKeyboardUI();
+                return;
         }
     }
 
@@ -97,6 +110,14 @@ public class HeroMovement : MonoBehaviour
         if((Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
             EggSpawn();
+        }
+
+        if(Input.GetKeyDown("m"))
+        {
+            KeyBoardMode = false;
+            Debug.Log("Switching to mouse mode");
+            GlobalBehavior.sTheGlobalBehavior.UpdateToMouseUI();
+            return;
         }
     }
 
