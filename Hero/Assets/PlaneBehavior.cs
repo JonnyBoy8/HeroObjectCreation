@@ -6,7 +6,6 @@ public class PlaneBehavior : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D hitinfo)
     {
-        Debug.Log(hitinfo.name);
         if(hitinfo.name == "Hero")
         {
             Destroy(gameObject);
@@ -31,14 +30,13 @@ public class PlaneBehavior : MonoBehaviour
 
     private void UpdateColor()
     {
-        Debug.Log("UPDATE COLOR CALLED");
         SpriteRenderer enemy = GetComponent<SpriteRenderer>();
         Color current_color = enemy.color;
 
-        current_color.a -= 0.2f;
+        current_color.a *= 0.8f;
         enemy.color = current_color;
 
-        if(current_color.a <= 0.0f)
+        if(enemy.color.a <= 0.35f)
         {
             GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
             GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
