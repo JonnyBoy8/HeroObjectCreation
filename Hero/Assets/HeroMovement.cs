@@ -18,7 +18,7 @@ public class HeroMovement : MonoBehaviour
     //egg variables
     public Transform eggSpawnPoint;
     public GameObject eggPrefab;
-    public float firerate = 0.5f;
+    public float firerate = 0.2f;
     public float nextFire = 0f;
 
     void Start()
@@ -137,7 +137,7 @@ public class HeroMovement : MonoBehaviour
         Rigidbody2D eggrb = eggbullet.GetComponent<Rigidbody2D>();
 
         //put speed on the bullet
-        eggrb.velocity = 40f * transform.up;
+        eggrb.velocity = 40f * eggSpawnPoint.up;
 
         //adjust the firerate
         nextFire = Time.time + firerate;
