@@ -18,6 +18,8 @@ public class HeroMovement : MonoBehaviour
     //egg variables
     public Transform eggSpawnPoint;
     public GameObject eggPrefab;
+
+    //frame rate set to 0.2 
     public float firerate = 0.2f;
     public float nextFire = 0f;
 
