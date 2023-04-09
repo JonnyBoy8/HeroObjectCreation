@@ -105,12 +105,12 @@ public class HeroMovement : MonoBehaviour
         //adjust the speed using W and S
         if(Input.GetKey(KeyCode.W))
         {
-            kHeroSpeed += .025f;
+            kHeroSpeed += 1f;
         }
 
         if(Input.GetKey(KeyCode.S))
         {
-            kHeroSpeed -= .025f;
+            kHeroSpeed -= 1f;
         }
 
         //rotate left or right using A and D or left and right arrows
