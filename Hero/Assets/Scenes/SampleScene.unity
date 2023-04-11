@@ -708,7 +708,7 @@ MonoBehaviour:
   kHeroRotateSpeed: 45
   eggSpawnPoint: {fileID: 1367071139}
   eggPrefab: {fileID: 475693280076637257, guid: 3cf62e477ef4444ca92cadd1380c2984, type: 3}
-  firerate: 0.5
+  firerate: 0.2
   nextFire: 0
 --- !u!61 &723785453
 BoxCollider2D:
